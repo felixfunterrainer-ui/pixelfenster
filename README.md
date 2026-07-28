@@ -1,6 +1,6 @@
 # PixelFenster — Website
 
-Static landing page + PHP contact-form backend. Deploy by pulling this repo onto the VPS document root; `index.html` is the entry point.
+Static landing page + PHP contact-form backend, deployed as a Coolify application (Dockerfile build pack) on the same VPS as Ornatis, bound to `pixelfenster.at`.
 
 ## Structure
 
@@ -9,13 +9,15 @@ Static landing page + PHP contact-form backend. Deploy by pulling this repo onto
 - `send.php` — receives the contact quiz payload and emails it via Zoho Mail SMTP (PHPMailer)
 - `assets/hero-window.jpg` — hero image
 - `composer.json` — PHPMailer dependency for `send.php`
+- `Dockerfile` — `php:8.3-apache`, installs Composer deps, serves `index.html` by default
 
-## Deploy
+## Deploy (Coolify)
 
-1. Pull/clone this repo into the web root on the VPS.
-2. On the server: `composer install` (creates `vendor/`, gitignored).
-3. Set the Zoho mailbox password as an environment variable on the server: `ZOHO_SMTP_PASSWORD` (used by `send.php`, never hardcode it).
-4. Point the domain/webserver at this directory; no build step needed.
+1. Coolify → New Resource → Application → Git repository → `https://github.com/felixfunterrainer-ui/pixelfenster`, branch `main`.
+2. Build pack: **Dockerfile** (auto-detected).
+3. Domain: `pixelfenster.at`. Coolify/Traefik handles routing and TLS, same as Ornatis — no changes needed to Ornatis or the host Apache.
+4. Environment variable: `ZOHO_SMTP_PASSWORD` (used by `send.php`, never hardcode it) — add once Zoho SMTP is set up.
+5. Deploy. Future updates: `git push` from this folder, then redeploy in Coolify (or enable auto-deploy on push).
 
 ## Outstanding before going fully live
 
