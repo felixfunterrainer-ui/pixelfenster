@@ -10,6 +10,8 @@ Static landing page + PHP contact-form backend, deployed as a Coolify applicatio
 - `assets/hero-window.jpg` — hero image
 - `composer.json` — PHPMailer dependency for `send.php`
 - `Dockerfile` — `php:8.3-apache`, installs Composer deps, serves `index.html` by default
+- `fonts/` — self-hosted Inter + Plus Jakarta Sans woff2 files (no third-party font CDN requests)
+- `robots.txt`, `sitemap.xml` — search engine indexing
 
 ## Deploy (Coolify)
 
@@ -22,6 +24,4 @@ Static landing page + PHP contact-form backend, deployed as a Coolify applicatio
 ## Outstanding before going fully live
 
 - **Zoho Mail SMTP** — `send.php` is pre-configured for `smtp.zoho.eu` / `office@pixelfenster.at`. Set `ZOHO_SMTP_PASSWORD` on the server and test a submission. (Planned as a follow-up.)
-- **Legal placeholders** — `impressum-agb.html` has several bracketed placeholders (highlighted in orange on the page) — company legal form, address, Firmenbuchnummer, UID, notice periods, etc. Have these reviewed by a Steuerberater/Rechtsanwalt before publishing, per the draft's own disclaimer.
-- **Self-hosted fonts** — both HTML files reference `fonts/*.woff2`, which aren't in this repo yet. Until added, browsers fall back to system fonts automatically — nothing breaks, it's a visual nice-to-have.
 - **CORS** — `send.php` currently allows `Access-Control-Allow-Origin: *`. Tighten to the production domain once it's live.
